@@ -31,13 +31,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
       if(items.defaultWebsites === undefined){
         websites =
         [
-          {"url" : "facebook.com", "on" : true},
-          {"url" : "twitter.com", "on" : true},
-          {"url" : "linkedin.com", "on" : true},
-          {"url" : "instagram.com", "on" : true},
-          {"url" : "youtube.com", "on" : true},
-          {"url" : "dailymotion.com", "on" : true},
-          {"url" : "flickr.com", "on" : true},
+          
         ];
 
         storage.local.set({"defaultWebsites": websites});
