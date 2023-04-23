@@ -85,7 +85,6 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
   function uploadButtonClick(){
     var fileInput = document.getElementById("fileInput");
     var file = fileInput.files[0];
-    //console.log('dickandballs');
     imageToText(file);
     var formData = new FormData();
     formData.append("file", file);
@@ -124,7 +123,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
             include_latex: true
           }
         };
-        console.log('tset up payload');
+        console.log('set up payload');
         // Send the request to the API using the background script
         chrome.runtime.sendMessage(
           {
