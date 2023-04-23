@@ -71,6 +71,15 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
     chrome.tabs.create({"url": "html/settings.html"});
   }
 
+  /* Upload the file that MIGHT unlock your predicament */
+  function uploadButtonClick(){
+    var fileInput = document.getElementById("fileInput");
+    var file = fileInput.files[0];
+    var formData = new FormData();
+    formData.append("file", file);
+    chrome.runtime.sendMessage({type: "upload", data: formData});
+  }
+
   /* update the number of attempts */
   function updateAttempts(){
     var nbAttempts = 0;
@@ -93,7 +102,9 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
   /* Attach onclick functions */
   var onButton = document.getElementById("onButton");
   var optionsButton = document.getElementById("optionsButton");
+  var uploadButton = document.getElementById("uploadButton");
 
   onButton.addEventListener("click", onButtonClick);
   optionsButton.addEventListener("click", optionsButtonClick);
+  uploadButton.addEventListener("click", uploadButtonClick);
 })();
