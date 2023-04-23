@@ -17,10 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 
-
-
-
-
 (function(){
   var storage = chrome.storage;
 
@@ -59,9 +55,9 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
       if(item.on === undefined || item.on === false){
         on = true;
       }
-      else {
-        on = false;
-      }
+      // else {
+      //   on = false;
+      // }
 
       storage.local.set({"on": on, "blocked": 0});
 
@@ -69,6 +65,16 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
       updateIcon();
     });
   }
+
+  // receive message to toggle button once homework is good enough
+  chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      if (request.switch === "off")
+        updateOnButton();
+        updateIcon();
+      console.log("off received")
+    }
+  );
 
   /* Open the options tab */
   function optionsButtonClick(){
@@ -112,7 +118,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
         const payload = {
           
           src: `data:image/png;base64,${encodedImage}`,
-          formats: ['text', 'data', 'html'],
+          formats: ['text'],
           data_options: {
             include_asciimath: true,
             include_latex: true
@@ -122,7 +128,6 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
         // Send the request to the API using the background script
         chrome.runtime.sendMessage(
           {
-            
             type: 'fetchMathpix',
             url: 'https://api.mathpix.com/v3/text',
             options: {
