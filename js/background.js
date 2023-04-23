@@ -75,6 +75,22 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
     return result;
   }
 
+  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.type === "upload") {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "your-upload-url", true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          sendResponse({success: true});
+        } else {
+          sendResponse({success: false});
+        }
+      };
+      xhr.send(message.data);
+      return true;
+    }
+  });
+
   /* Redirect if necessary */
   function analyzeUrl(details){
     storage.local.get("on", function(item){
