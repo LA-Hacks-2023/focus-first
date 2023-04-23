@@ -26,10 +26,10 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
     storage.local.get("on", function(item){
       if(item.on === true){
-        onButton.innerText = "Deactivate";
+        onButton.innerText = "Release";
       }
       else {
-        onButton.innerText = "Activate";
+        onButton.innerText = "Restrict";
       }
     });
   }
@@ -38,10 +38,10 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
   function updateIcon(){
     storage.local.get("on", function(item){
       if(item.on === true){
-        chrome.browserAction.setIcon({"path": "../images/icon128-2.png"});
+        chrome.browserAction.setIcon({"path": "../images/restrict.png"});
       }
       else {
-        chrome.browserAction.setIcon({"path": "../images/icon128-1.png"});
+        chrome.browserAction.setIcon({"path": "../images/release.png"});
       }
     });
   }

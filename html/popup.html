@@ -20,33 +20,34 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Focus Mode</title>
+  <title>FirstFirst</title>
   <link rel="stylesheet" type="text/css" href="../css/popup.css">
 </head>
 
-<body>
-  <div class="title">Focus Mode</div>
+<body class="pop">
+  <div class="title">FocusFirst</div>
 
   <div class="attempts">
-    <number>0</number> Distraction attempts
+    <number>0</number> Distractions Prevented
   </div>
 
   <div class="buttons">
+    <a id="uploadButton" href class="button raised">
+      Upload
+    </a>
+
     <a id="onButton" href class="button raised">
-      Activate
+      Restrict
     </a>
 
     <a id="optionsButton" href class="button raised">
       Settings
     </a>
-
-    <a id="uploadButton" href class="button raised">
-      Upload
-    </a>
   </div>
 
-  <input type="file" id="fileInput">
-
+  <div class="fileSubmit">
+    <input title="fileInput" type="file" id="fileInput" accept="image\*">
+  </div>
 
   <script src="../js/popup.js"></script>
 </body>
