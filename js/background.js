@@ -68,9 +68,31 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
     return result;
   }
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    console.log('Message received:', request);
 
-  chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    if (message.type === "upload") {
+    if (request.type === 'fetchMathpix') {
+      fetch(request.url, request.options)
+        .then((response) => {
+          console.log('API response status:', response.status);
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error(
+              `Error: ${response.status} ${response.statusText}`
+            );
+          }
+        })
+        .then((data) => {
+          console.log('API response data:', data);
+          sendResponse({ success: true, data: data });
+        })
+        .catch((error) => {
+          console.error('API error:', error);
+          sendResponse({ success: false, error: error.toString() });
+        });
+      return true;
+    } else if (request.type === "upload") {
       var xhr = new XMLHttpRequest();
       xhr.open("POST", "your-upload-url", true);
       xhr.onload = function() {
@@ -80,7 +102,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
           sendResponse({success: false});
         }
       };
-      xhr.send(message.data);
+      xhr.send(request.data);
       return true;
     }
   });

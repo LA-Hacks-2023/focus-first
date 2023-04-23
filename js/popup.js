@@ -17,6 +17,10 @@ You should have received a copy of the GNU General Public License
 along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 *******************************************************************************/
 
+
+
+
+
 (function(){
   var storage = chrome.storage;
 
@@ -75,10 +79,86 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
   function uploadButtonClick(){
     var fileInput = document.getElementById("fileInput");
     var file = fileInput.files[0];
+    //console.log('dickandballs');
+    imageToText(file);
     var formData = new FormData();
     formData.append("file", file);
     chrome.runtime.sendMessage({type: "upload", data: formData});
   }
+
+  async function imageToText(file) {
+    if (!file) {
+      alert('Please select an image file.');
+      return;
+    }
+  
+    try {
+      // Encode the image as a base64 string
+      console.log('trying');
+      const reader = new FileReader();
+      reader.onloadend = async function () {
+        console.log('sent to background path');
+        const encodedImage = reader.result.split(',')[1];
+  
+        // Set up the API request headers
+        const headers = {
+          
+          'Content-Type': 'application/json',
+          'app_id': 'jeongjooho1995_gmail_com_1f0f89_a1c675',
+          'app_key': '6c9826233604a6aaf8a6f2f1816e1474a779fc2c85b2d41324887be8061a5c43'
+        };
+  
+        // Set up the API request payload
+        const payload = {
+          
+          src: `data:image/png;base64,${encodedImage}`,
+          formats: ['text', 'data', 'html'],
+          data_options: {
+            include_asciimath: true,
+            include_latex: true
+          }
+        };
+        console.log('tset up payload');
+        // Send the request to the API using the background script
+        chrome.runtime.sendMessage(
+          {
+            
+            type: 'fetchMathpix',
+            url: 'https://api.mathpix.com/v3/text',
+            options: {
+              method: 'POST',
+              headers: headers,
+              body: JSON.stringify(payload),
+            },
+          },
+          //console.log('response?');
+          (response) => {
+            console.log('response.');
+            if (response.success) {
+              const result = response.data;
+              // Check if the result has the desired property and extract the text
+              if (result.text) {
+                console.log('ur there');
+                const text = result.text;
+                console.log('Extracted text:', text);
+              } else {
+                console.error(
+                  'Error: The response does not have the expected structure. Response:',
+                  JSON.stringify(result, null, 2)
+                );
+              }
+            } else {
+              console.error('Error:', response.error);
+            }
+          }
+        );
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+  
 
   /* update the number of attempts */
   function updateAttempts(){
