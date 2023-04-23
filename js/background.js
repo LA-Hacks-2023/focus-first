@@ -28,23 +28,17 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
     storage.local.get(["defaultWebsites", "customWebsites"], function(items){
       //First, load the default websites to block
-      // if(items.defaultWebsites === undefined){
-      //   websites =
-      //   [
-      //     {"url" : "facebook.com", "on" : true},
-      //     {"url" : "twitter.com", "on" : true},
-      //     {"url" : "linkedin.com", "on" : true},
-      //     {"url" : "instagram.com", "on" : true},
-      //     {"url" : "youtube.com", "on" : true},
-      //     {"url" : "dailymotion.com", "on" : true},
-      //     {"url" : "flickr.com", "on" : true},
-      //   ];
+      if(items.defaultWebsites === undefined){
+        websites =
+        [
+          
+        ];
 
-      //   storage.local.set({"defaultWebsites": websites});
-      // }
-      // else {
+        storage.local.set({"defaultWebsites": websites});
+      }
+      else {
         websites = items.defaultWebsites;
-      // }
+      }
 
       //Then load the customs websites to block
       if(items.customWebsites === undefined){
