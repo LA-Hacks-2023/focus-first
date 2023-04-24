@@ -55,9 +55,9 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
       if(item.on === undefined || item.on === false){
         on = true;
       }
-      // else {
-      //   on = false;
-      // }
+      else {
+        on = false;
+      }
 
       storage.local.set({"on": on, "blocked": 0});
 
