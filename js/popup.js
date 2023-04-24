@@ -93,7 +93,7 @@ along with Focus Mode.  If not, see <http://www.gnu.org/licenses/>.
 
   async function imageToText(file) {
     if (!file) {
-      alert('Please select an image file.');
+      alert('Please select an image or pdf file.');
       return;
     }
   
