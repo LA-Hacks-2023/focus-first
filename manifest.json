@@ -1,8 +1,8 @@
 {
 "manifest_version": 2,
-"name" :"Focus Mode",
-"version" :"1.2",
-"description" :"A mode to keep you focused at work !",
+"name" :"FocusFirst",
+"version" :"1.0",
+"description" :"Do your work. Focus first.",
 "icons": { "128": "images/restrict.png" },
 "browser_action" : {
   "default_icon": "images/release.png",
